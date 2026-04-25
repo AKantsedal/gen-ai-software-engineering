@@ -1,6 +1,6 @@
 # Banking Transactions API
 
-> **Student Name**: Andrii Kantsedal
+> **Student Name**: Artur Kantsedal
 > **Date Submitted**: 2026-04-25
 > **AI Tools Used**: Claude Code (Claude Sonnet 4.6 / Opus 4.6)
 
