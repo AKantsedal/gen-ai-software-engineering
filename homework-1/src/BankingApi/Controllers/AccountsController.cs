@@ -8,15 +8,8 @@ namespace BankingApi.Controllers;
 
 [ApiController]
 [Route("accounts")]
-public class AccountsController : ControllerBase
+public class AccountsController(ITransactionService transactionService) : ControllerBase
 {
-    private readonly ITransactionService _transactionService;
-
-    public AccountsController(ITransactionService transactionService)
-    {
-        _transactionService = transactionService;
-    }
-
     [HttpGet("{accountId}/balance")]
     [ProducesResponseType(typeof(AccountBalanceResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -32,7 +25,7 @@ public class AccountsController : ControllerBase
                 }
             });
 
-        var balance = _transactionService.GetBalance(accountId);
+        var balance = transactionService.GetBalance(accountId);
 
         return Ok(new AccountBalanceResponse
         {
@@ -57,6 +50,6 @@ public class AccountsController : ControllerBase
                 }
             });
 
-        return Ok(_transactionService.GetSummary(accountId));
+        return Ok(transactionService.GetSummary(accountId));
     }
 }
