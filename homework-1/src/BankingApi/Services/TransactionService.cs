@@ -13,7 +13,7 @@ public class TransactionService : ITransactionService
         _repository = repository;
     }
 
-    public Transaction Create(string fromAccount, string toAccount, decimal amount, string currency, TransactionType type)
+    public Transaction Create(string fromAccount, string toAccount, decimal amount, Currency currency, TransactionType type)
     {
         var transaction = new Transaction
         {

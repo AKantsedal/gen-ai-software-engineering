@@ -1,21 +1,16 @@
 using System.Text.RegularExpressions;
+using BankingApi.Models;
 using BankingApi.Models.Dtos;
 
 namespace BankingApi.Validators;
 
 public static class TransactionValidator
 {
-    private static readonly HashSet<string> ValidCurrencies = new(StringComparer.OrdinalIgnoreCase)
-    {
-        "USD", "EUR", "GBP", "JPY", "CHF", "CAD", "AUD", "NZD",
-        "CNY", "INR", "BRL", "KRW", "SGD", "HKD", "NOK", "SEK",
-        "DKK", "PLN", "ZAR", "MXN", "ILS", "TRY", "THB", "CZK",
-        "HUF", "RON", "BGN", "HRK", "RUB", "UAH"
-    };
-
     private static readonly Regex AccountPattern = new(@"^ACC-[A-Za-z0-9]{5}$", RegexOptions.Compiled);
 
     private static readonly string[] ValidTypes = { "deposit", "withdrawal", "transfer" };
+
+    public static bool IsValidAccountId(string accountId) => AccountPattern.IsMatch(accountId);
 
     public static List<ValidationDetail> Validate(CreateTransactionRequest request)
     {
@@ -64,7 +59,7 @@ public static class TransactionValidator
 
     private static void ValidateCurrency(string currency, List<ValidationDetail> errors)
     {
-        if (string.IsNullOrWhiteSpace(currency) || !ValidCurrencies.Contains(currency))
+        if (string.IsNullOrWhiteSpace(currency) || !Enum.TryParse<Currency>(currency, ignoreCase: true, out _))
         {
             errors.Add(new ValidationDetail
             {

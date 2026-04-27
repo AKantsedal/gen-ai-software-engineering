@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using BankingApi.Models;
 using BankingApi.Models.Dtos;
 using BankingApi.Services;
@@ -30,12 +29,13 @@ public class TransactionsController : ControllerBase
         }
 
         var type = Enum.Parse<TransactionType>(request.Type, ignoreCase: true);
+        var currency = Enum.Parse<Currency>(request.Currency, ignoreCase: true);
 
         var transaction = _transactionService.Create(
             request.FromAccount,
             request.ToAccount,
             request.Amount,
-            request.Currency,
+            currency,
             type);
 
         var response = TransactionResponse.FromTransaction(transaction);
@@ -56,7 +56,7 @@ public class TransactionsController : ControllerBase
         if (!string.IsNullOrWhiteSpace(accountId))
         {
             accountId = accountId.Trim();
-            if (!Regex.IsMatch(accountId, @"^ACC-[A-Za-z0-9]{5}$"))
+            if (!TransactionValidator.IsValidAccountId(accountId))
                 errors.Add(new ValidationDetail { Field = "accountId", Message = "Account number must follow format ACC-XXXXX (X is alphanumeric)." });
         }
 

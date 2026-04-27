@@ -6,7 +6,7 @@ public class Transaction
     public string FromAccount { get; set; } = string.Empty;
     public string ToAccount { get; set; } = string.Empty;
     public decimal Amount { get; set; }
-    public string Currency { get; set; } = string.Empty;
+    public Currency Currency { get; set; }
     public TransactionType Type { get; set; }
     public DateTime Timestamp { get; set; }
     public TransactionStatus Status { get; set; }

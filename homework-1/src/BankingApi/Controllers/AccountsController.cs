@@ -1,6 +1,7 @@
-using System.Text.RegularExpressions;
+using BankingApi.Models;
 using BankingApi.Models.Dtos;
 using BankingApi.Services;
+using BankingApi.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankingApi.Controllers;
@@ -22,7 +23,7 @@ public class AccountsController : ControllerBase
     public IActionResult GetBalance(string accountId)
     {
         accountId = accountId.Trim();
-        if (!Regex.IsMatch(accountId, @"^ACC-[A-Za-z0-9]{5}$"))
+        if (!TransactionValidator.IsValidAccountId(accountId))
             return BadRequest(new ValidationErrorResponse
             {
                 Details = new List<ValidationDetail>
@@ -37,7 +38,7 @@ public class AccountsController : ControllerBase
         {
             AccountId = accountId,
             Balance = balance,
-            Currency = "USD"
+            Currency = Currency.USD
         });
     }
 
@@ -47,7 +48,7 @@ public class AccountsController : ControllerBase
     public IActionResult GetSummary(string accountId)
     {
         accountId = accountId.Trim();
-        if (!Regex.IsMatch(accountId, @"^ACC-[A-Za-z0-9]{5}$"))
+        if (!TransactionValidator.IsValidAccountId(accountId))
             return BadRequest(new ValidationErrorResponse
             {
                 Details = new List<ValidationDetail>
