@@ -7,7 +7,7 @@ PROJECT_DIR="$SCRIPT_DIR/../src/BankingApi"
 cd "$PROJECT_DIR"
 
 echo "Building BankingApi..."
-dotnet build --nologo -q
+dotnet build --nologo
 
 echo "Starting BankingApi on http://localhost:3000"
 echo "Swagger UI: http://localhost:3000/swagger"
