@@ -31,8 +31,12 @@
   4111 1111 1111 1112 (invalid due to Luhn algorithm check failure)
 - Accept card number via REST API
 - Do not store and do not log card numbers in the unobscured form, store only the first four and the last four digits (e.g., 4111 **** **** 1111)
-- 99% of the lookup should take under 1 second
+- P99 lookup latency ≤ 1 s; P95 ≤ 500 ms 
 - Implement unit tests for the service, with both valid and invalid card numbers
+
+## Edge Cases and Failure Modes
+- Card number passes Luhn but BIN is not found in the database → return 404 with `{"error": "unknown_bin"}`; log masked number only
+- Card number contains spaces or dashes (e.g., `4111 1111 1111 1111`) → strip non-digit characters before validation, do not reject outright
 
 ## Prerequisites
 - BIN lookup data should be provided by the third party data vendor
@@ -72,6 +76,10 @@ What file do you want to CREATE or UPDATE?
 - Use `xUnit` with `WebApplicationFactory<T>` for unit and integration testing
 - Use Swashbuckle's `AddEndpointsApiExplorer` + `AddSwaggerGen` for API documentation
 
+**Acceptance Criteria:**
+- [ ] `POST /api/v1/card/lookup` returns 200 with `type`, `bank`, `country`, and `masked` fields for all four valid test cards
+- [ ] Response for an invalid card returns 422; no unmasked card number appears in logs
+
 ### 2. Implement database lookup
 
 What prompt would you run to complete this task?
@@ -92,6 +100,10 @@ What file do you want to CREATE or UPDATE?
 - `Data/BinRepository.cs` — repository implementing BIN range lookup
 - `Models/BinEntry.cs` — entity mapping to the BIN lookup table
 
+**Acceptance Criteria:**
+- [ ] BIN range query returns correct `type`, `bank`, and `country` for all four valid test card prefixes
+- [ ] Unknown BIN returns `null`; caller receives 404
+
 ### 3. Implement automated tests
 
 What prompt would you run to complete this task?
@@ -106,6 +118,10 @@ What file do you want to CREATE or UPDATE?
 
 What are details you want to add to drive the code changes?
 - Cover all five reference card numbers from the Implementation Notes
+
+**Acceptance Criteria:**
+- [ ] All unit and integration tests pass; test run reports 0 failures
+- [ ] Test suite covers Luhn validation, BIN lookup, masked output, and the unknown-BIN 404 case
 
 
 #### Testing
