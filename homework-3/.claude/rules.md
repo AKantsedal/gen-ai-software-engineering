@@ -1,7 +1,6 @@
 # Claude Code Rules — Card Data Lookup Service
 
 ## General
-- This is a read-only BIN lookup service; never generate write, update, or delete endpoints or migrations
 - Do not add features beyond what the spec asks for
 - Prefer editing existing files over creating new ones
 
