@@ -83,6 +83,7 @@
 - Create REST API endpoints for card number lookup
 - Return the card data in JSON format
 - Do not call the database yet, return mocked data and verify that logic is correct
+- Model to use: Claude Sonnet 4.6
 
 **Files to create or update:**
 - Create REST API endpoints in `Controllers/CardLookupController.cs`
@@ -114,6 +115,7 @@
 - Use `async`/`await` for asynchronous operations
 - Use `TryAddSingleton` for singleton service registration
 - Implement BIN data lookup using the provided BIN lookup data
+- Model to use: Claude Sonnet 4.6
 
 **Files to create or update:**
 - `Data/CardLookupDbContext.cs` — EF Core `DbContext` with `DbSet<BinEntry>`
@@ -130,6 +132,7 @@
 - Add xUnit test project to the solution
 - Write unit tests for Luhn validation and BIN lookup logic using the five reference card numbers
 - Write integration tests for the REST endpoint using `WebApplicationFactory<T>`
+- Model to use: Claude Sonnet 4.6
 
 **Files to create or update:**
 - `Tests/CardLookupControllerTests.cs` — integration tests

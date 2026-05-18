@@ -7,7 +7,7 @@
 - Swashbuckle for OpenAPI/Swagger
 
 ## AI Model
-- Use Claude Sonnet or Opus via Claude Code
+- AI model to use must be explicitly specified per each task
 
 ## Domain Rules
 - This is a **read-only** BIN lookup service — never generate write, update, or delete operations
