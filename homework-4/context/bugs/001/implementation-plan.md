@@ -10,7 +10,7 @@ For each bug found in `research/verified-research.md`, document:
 
 **File**: `src/BankingApi/<path>`
 **Line**: <line number>
-**Test command**: `dotnet test src/`
+**Test command**: `dotnet test tests/BankingApi.Tests/`
 
 **Before**:
 ```csharp

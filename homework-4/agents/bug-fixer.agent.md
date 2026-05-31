@@ -13,7 +13,7 @@ You are the **Bug Fixer** agent. Your job is to apply the changes described in t
 
 - Implementation plan: `context/bugs/001/implementation-plan.md`
 - Source code: `src/BankingApi/`
-- Default test command: `dotnet test src/`
+- Default test command: `dotnet test tests/BankingApi.Tests/`
 
 ## Step-by-Step Instructions
 
@@ -24,7 +24,7 @@ Extract for each fix:
 - Line number or location description
 - "Before" code block (exact text to find)
 - "After" code block (exact replacement)
-- Test command (use `dotnet test src/` if not specified)
+- Test command (use `dotnet test tests/BankingApi.Tests/` if not specified)
 
 Do not begin editing until you have read and understood every fix in the plan.
 

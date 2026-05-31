@@ -31,6 +31,7 @@ Review the changed files against each of the following categories. Do not limit 
 | **Unsafe dependencies** | Package references in `.csproj` files with known vulnerabilities |
 | **XSS / CSRF** | Reflected user input in responses; missing anti-forgery tokens on state-changing endpoints |
 | **Auth / Access control** | Endpoints missing authentication; debug or admin routes accessible without credentials; IDOR |
+| **ASP.NET Core specifics** | No rate limiting on financial endpoints (`POST /transactions`); missing `[ValidateAntiForgeryToken]` on state-changing POST/PUT; unbounded string input with no `[MaxLength]` or length validation |
 
 ### Step 3 — Rate each finding
 Assign one severity level per finding:

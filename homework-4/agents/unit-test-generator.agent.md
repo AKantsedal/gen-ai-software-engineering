@@ -47,7 +47,7 @@ For each changed method identified in Step 2:
 3. Fix any FIRST violations before including the test.
 
 ### Step 5 — Run the tests
-Run `dotnet test tests/` (or `dotnet test src/` if the test project is under src/).
+Run `dotnet test tests/BankingApi.Tests/`.
 Record the output: which tests passed, which failed, and any error messages.
 
 ### Step 6 — Write the test report
