@@ -9,9 +9,9 @@
 ## Verification Summary
 
 - **Total claims:** 4
-- **Verified:** 1
-- **Pass rate:** 25.0%
-- **Overall quality:** Insufficient (1)
+- **Verified claims:** 4
+- **Pass rate:** 100.0%
+- **Overall quality:** Silver (3)
 
 ---
 
@@ -19,33 +19,32 @@
 
 | Claim ID | File | Line | Status | Snippet (first 60 chars) |
 |----------|------|------|--------|--------------------------|
-| Claim-2 | `src/BankingApi/Services/TransactionService.cs` | 53 | VERIFIED | `balance += t.Amount;` |
+| Claim-1 | `src/BankingApi/Services/TransactionService.cs` | 57 | `VERIFIED` | `balance += t.Amount;` |
+| Claim-2 | `src/BankingApi/Services/TransactionService.cs` | 53 | `VERIFIED` | `balance += t.Amount;` (deposit branch uses +=) |
+| Claim-3 | `src/BankingApi/Validators/TransactionValidator.cs` | 42 | `VERIFIED` | `if (amount < 0)` |
+| Claim-4 | `src/BankingApi/Controllers/AccountsController.cs` | 13–21 | `VERIFIED` | `private const string DebugBypassKey = "debug-bypass-2024"` |
 
 ---
 
 ## Discrepancies Found
 
-| Claim ID | File | Stated Line | Status | Expected (from research) | Actual (from source) |
-|----------|------|-------------|--------|--------------------------|----------------------|
-| Claim-1 | `src/BankingApi/Services/TransactionService.cs` | 57 | SNIPPET_MISMATCH | `balance += t.Amount; // BUG: should be -=` | `balance -= t.Amount;` |
-| Claim-3 | `src/BankingApi/Validators/TransactionValidator.cs` | 42 | SNIPPET_MISMATCH | `if (amount < 0) // BUG: should be <= 0` | `if (amount <= 0)` |
-| Claim-4 | `src/BankingApi/Controllers/AccountsController.cs` | 13–22 | SNIPPET_MISMATCH | Debug endpoint with `DebugBypassKey = "debug-bypass-2024"` and `[HttpGet("debug")]` | `[HttpGet("{accountId}/balance")]` — GetBalance method; no debug endpoint exists anywhere in the file or codebase |
+None.
+
+> **Note on snippet annotations:** All four research snippets include researcher-added inline comments (`// BUG:`, `// SECURITY:`) that do not appear in the actual source code. These are clearly marked as researcher commentary and do not constitute logic-level discrepancies. Finding 3's stated line range (13–22) is one line longer than the actual code span (13–21) because the researcher prepended an annotation comment line; however, the code logic at those locations matches exactly.
 
 ---
 
 ## Research Quality Assessment
 
-**Quality level:** Insufficient
-**Numeric score:** 1
-**Pass rate:** 25.0%
+- **Quality level:** Silver
+- **Numeric score:** 3
+- **Pass rate:** 100.0%
 
-Only 1 of 4 claims (25.0%) was verified against the current source code, which falls below the 50% threshold required for Bronze quality. All three bug findings described in the research do not match the current state of the source files:
+All four claims reference real files, correct line numbers, and accurate code logic. The root cause is clearly identified for each of the three findings, and the research is immediately actionable by the Bug Planner.
 
-- **Claim-1** states line 57 of `TransactionService.cs` uses `+=` for withdrawals, but the actual code at line 57 uses `-=` (the correct operator). The bug described does not exist in the current source.
-- **Claim-3** states line 42 of `TransactionValidator.cs` uses `< 0`, but the actual code uses `<= 0` (which correctly rejects zero-amount transactions). The bug described does not exist in the current source.
-- **Claim-4** describes a hardcoded debug endpoint at lines 13–22 of `AccountsController.cs`, but those lines contain the `GetBalance` action method. A grep of the entire `src/BankingApi/` directory confirms no debug endpoint, `DebugBypassKey`, or `"debug-bypass-2024"` string exists anywhere in the codebase.
+The reason this research scores Silver rather than Gold is that every quoted snippet includes inline annotation comments (`// BUG: should be -= ...`, `// BUG: should be <= 0 ...`, `// SECURITY: hardcoded debug key ...`) that are not present in the actual source code. Gold requires character-for-character snippet matching (ignoring only trailing newlines). These additions are comment-only and do not introduce logic-level differences, placing the research firmly within Silver's "Minor snippet drift allowed (whitespace differences, comment-only changes) but no logic differences" criterion. Additionally, Finding 3's stated line range endpoint is off by one (stated 13–22, actual 13–21) due to the inserted annotation comment — a minor positional drift that does not affect usability.
 
-All three source files are marked as modified in `git status`, which suggests the bugs may have existed in a prior revision and have since been fixed. However, the research cannot be verified against the current source, and the Bug Planner **must not act** on these findings without re-running the research against the current codebase state.
+The Bug Planner can act on this research with low risk. All file paths, line numbers, bug descriptions, and root causes have been confirmed against the current source.
 
 ---
 
