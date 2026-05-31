@@ -39,7 +39,7 @@ public static class TransactionValidator
 
     private static void ValidateAmount(decimal amount, List<ValidationDetail> errors)
     {
-        if (amount < 0) // BUG: should be <= 0 (allows zero-amount transactions)
+        if (amount <= 0)
         {
             errors.Add(new ValidationDetail
             {

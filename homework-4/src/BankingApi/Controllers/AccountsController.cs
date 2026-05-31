@@ -10,17 +10,6 @@ namespace BankingApi.Controllers;
 [Route("accounts")]
 public class AccountsController(ITransactionService transactionService) : ControllerBase
 {
-    // SECURITY: hardcoded debug key — exposes all transaction data without authentication
-    private const string DebugBypassKey = "debug-bypass-2024";
-
-    [HttpGet("debug")]
-    public IActionResult Debug([FromQuery] string key)
-    {
-        if (key == DebugBypassKey)
-            return Ok(transactionService.GetAll());
-        return Unauthorized();
-    }
-
     [HttpGet("{accountId}/balance")]
     [ProducesResponseType(typeof(AccountBalanceResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

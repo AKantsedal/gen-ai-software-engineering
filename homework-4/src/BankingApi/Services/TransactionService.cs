@@ -54,7 +54,7 @@ public class TransactionService : ITransactionService
 
             // Withdrawals from this account decrease balance
             if (t.Type == TransactionType.Withdrawal && t.FromAccount == accountId)
-                balance += t.Amount; // BUG: should be -= (withdrawals incorrectly increase balance)
+                balance -= t.Amount;
 
             // Transfers: decrease sender, increase receiver
             if (t.Type == TransactionType.Transfer)
