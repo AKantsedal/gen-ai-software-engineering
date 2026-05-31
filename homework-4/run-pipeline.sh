@@ -4,7 +4,7 @@
 # Prerequisites:
 #   - .NET 8 SDK installed
 #   - Claude Code CLI installed (`claude`)
-#   - ANTHROPIC_API_KEY set in environment
+#   - Anthropic auth: either Claude Code keychain (interactive session) OR ANTHROPIC_API_KEY env var
 #
 # Usage:
 #   chmod +x run-pipeline.sh
@@ -12,7 +12,7 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 CONTEXT="$SCRIPT_DIR/context/bugs/001"
 
 # ---------------------------------------------------------------------------

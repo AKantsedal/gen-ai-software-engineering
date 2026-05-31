@@ -49,7 +49,17 @@ dotnet test tests/BankingApi.Tests/
 
 ## 3. Run the Full 4-Agent Pipeline
 
-> **Note**: This requires the Claude Code CLI and a valid `ANTHROPIC_API_KEY`.
+> **Note**: This requires the Claude Code CLI and Anthropic authentication.
+
+**Authentication** — the pipeline works with either:
+- Claude Code's own keychain auth (already set up if you use `claude` interactively), **or**
+- An explicit API key:
+
+```bash
+export ANTHROPIC_API_KEY=your-api-key-here
+```
+
+Then run:
 
 ```bash
 # From homework-4/
@@ -99,7 +109,7 @@ dotnet build tests/BankingApi.Tests/
 
 No environment variables required to run the application.
 
-For the pipeline only:
+For the pipeline, set the API key only if you are **not** using Claude Code's interactive session auth:
 ```bash
 export ANTHROPIC_API_KEY=your-key-here
 ```
