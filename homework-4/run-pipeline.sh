@@ -20,6 +20,19 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-$0}")" && pwd)"
 CONTEXT="$SCRIPT_DIR/context/bugs/001"
 
 # ---------------------------------------------------------------------------
+# Helpers  (must be defined before argument parsing)
+# ---------------------------------------------------------------------------
+
+log() { echo; echo "======================================================"; echo "  $1"; echo "======================================================"; }
+fail() { echo "[ERROR] $1" >&2; exit 1; }
+
+# Strip YAML frontmatter (--- ... ---) from an agent file and return the body
+agent_prompt() {
+  local file="$1"
+  awk '/^---/{found++; next} found>=2{print}' "$file"
+}
+
+# ---------------------------------------------------------------------------
 # Parse --step / --from arguments
 # ---------------------------------------------------------------------------
 
@@ -39,19 +52,6 @@ should_run() {
   [[ -n "$ONLY_STEP" ]] && [[ "$ONLY_STEP" != "$step" ]] && return 1
   [[ "$step" -lt "$FROM_STEP" ]] && return 1
   return 0
-}
-
-# ---------------------------------------------------------------------------
-# Helpers
-# ---------------------------------------------------------------------------
-
-log() { echo; echo "======================================================"; echo "  $1"; echo "======================================================"; }
-fail() { echo "[ERROR] $1" >&2; exit 1; }
-
-# Strip YAML frontmatter (--- ... ---) from an agent file and return the body
-agent_prompt() {
-  local file="$1"
-  awk '/^---/{found++; next} found>=2{print}' "$file"
 }
 
 # ---------------------------------------------------------------------------
