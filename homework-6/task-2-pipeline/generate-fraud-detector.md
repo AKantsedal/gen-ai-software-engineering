@@ -5,12 +5,16 @@ Generate the FraudDetector agent for the multi-agent banking pipeline.
 1. Read `task-1-specification/specification.md` — Section 5, "Task: Fraud Detector" for exact scoring rules, thresholds, and acceptance criteria.
 2. Read `task-1-specification/agents.md` — directory routing, PII masking, code style.
 3. Read `sample-transactions.json` — understand the fraud signals: TXN002 ($25K high-value), TXN003 ($9,999.99 structuring), TXN004 (02:47 UTC off-hours + country DE cross-border), TXN005 ($75K high-value).
-4. Read existing `Models/MessageEnvelope.cs` and `Helpers/FileHelper.cs` — use shared models and utilities.
+4. Read existing `task-2-pipeline/pipeline-code/Models/MessageEnvelope.cs` and `task-2-pipeline/pipeline-code/Helpers/FileHelper.cs` — use shared models and utilities.
 5. Use **MCP context7** to look up `decimal` handling in C# / .NET — parsing, comparison, `CultureInfo.InvariantCulture`. Document the query and key insight for `research-notes.md`.
+
+## Output location
+
+All generated code goes inside `task-2-pipeline/pipeline-code/`.
 
 ## File to create
 
-### `agents/FraudDetector.cs`
+### `task-2-pipeline/pipeline-code/agents/FraudDetector.cs`
 
 **Constructor:** Takes `ILoggerFactory` and `JsonSerializerOptions`. Creates `ILogger<FraudDetector>` from the factory.
 

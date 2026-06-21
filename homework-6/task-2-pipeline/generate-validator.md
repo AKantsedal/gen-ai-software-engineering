@@ -5,11 +5,15 @@ Generate the TransactionValidator agent for the multi-agent banking pipeline.
 1. Read `task-1-specification/specification.md` — Section 5, "Task: Transaction Validator" for exact logic, acceptance criteria, and expected outcomes.
 2. Read `task-1-specification/agents.md` — ISO 4217 allowlist, directory routing, PII masking, code style.
 3. Read `sample-transactions.json` — understand all edge cases: TXN006 (invalid currency XYZ), TXN007 (negative refund — valid).
-4. Read existing `Models/MessageEnvelope.cs` and `Helpers/FileHelper.cs` — use the shared models and utilities already created by the scaffolding step.
+4. Read existing `task-2-pipeline/pipeline-code/Models/MessageEnvelope.cs` and `task-2-pipeline/pipeline-code/Helpers/FileHelper.cs` — use the shared models and utilities already created by the scaffolding step.
+
+## Output location
+
+All generated code goes inside `task-2-pipeline/pipeline-code/`.
 
 ## File to create
 
-### `agents/TransactionValidator.cs`
+### `task-2-pipeline/pipeline-code/agents/TransactionValidator.cs`
 
 **Constructor:** Takes `ILoggerFactory` and `JsonSerializerOptions`. Creates `ILogger<TransactionValidator>` from the factory.
 

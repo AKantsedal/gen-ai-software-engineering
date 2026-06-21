@@ -4,11 +4,15 @@ Generate the SettlementReporter (Reporting Agent) for the multi-agent banking pi
 
 1. Read `task-1-specification/specification.md` — Section 5, "Task: Settlement Reporter" for exact logic and acceptance criteria.
 2. Read `task-1-specification/agents.md` — directory routing, PII masking, code style.
-3. Read existing `Models/MessageEnvelope.cs` and `Helpers/FileHelper.cs` — use shared models and utilities.
+3. Read existing `task-2-pipeline/pipeline-code/Models/MessageEnvelope.cs` and `task-2-pipeline/pipeline-code/Helpers/FileHelper.cs` — use shared models and utilities.
+
+## Output location
+
+All generated code goes inside `task-2-pipeline/pipeline-code/`.
 
 ## File to create
 
-### `agents/SettlementReporter.cs`
+### `task-2-pipeline/pipeline-code/agents/SettlementReporter.cs`
 
 **Constructor:** Takes `ILoggerFactory` and `JsonSerializerOptions`. Creates `ILogger<SettlementReporter>` from the factory.
 

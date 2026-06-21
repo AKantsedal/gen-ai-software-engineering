@@ -7,9 +7,13 @@ Generate the .NET 10 project scaffolding, shared models, helper utilities, and t
 3. Read `sample-transactions.json` — understand all 8 transactions and their fields.
 4. Use **MCP context7** to look up `System.Text.Json` serialization patterns for .NET (JsonSerializer, JsonSerializerOptions, snake_case naming, PropertyNameCaseInsensitive). Document the query and key insight for `research-notes.md`.
 
+## Output location
+
+All generated files go inside `task-2-pipeline/pipeline-code/`. Use this as the project root for all paths below.
+
 ## Files to create
 
-### 1. `BankingPipeline.csproj`
+### 1. `task-2-pipeline/pipeline-code/BankingPipeline.csproj`
 
 .NET 10 console app:
 
@@ -30,7 +34,7 @@ Generate the .NET 10 project scaffolding, shared models, helper utilities, and t
 
 Adjust package versions to whatever `dotnet` resolves. The key is: target `net10.0`, add logging packages.
 
-### 2. `Program.cs`
+### 2. `task-2-pipeline/pipeline-code/Program.cs`
 
 Minimal entry point:
 - Create `ILoggerFactory` using `LoggerFactory.Create(builder => builder.AddConsole())`
@@ -40,7 +44,7 @@ Minimal entry point:
 - Return exit code 0 on success, 1 on failure
 - Wrap in try/catch, log any unhandled exception
 
-### 3. `Models/RawTransaction.cs`
+### 3. `task-2-pipeline/pipeline-code/Models/RawTransaction.cs`
 
 POCO matching `sample-transactions.json` shape. Use `[JsonPropertyName("snake_case")]` on every property:
 - `TransactionId` (string)
@@ -53,7 +57,7 @@ POCO matching `sample-transactions.json` shape. Use `[JsonPropertyName("snake_ca
 - `Description` (string)
 - `Metadata` — nested object with `Channel` (string) and `Country` (string)
 
-### 4. `Models/MessageEnvelope.cs`
+### 4. `task-2-pipeline/pipeline-code/Models/MessageEnvelope.cs`
 
 The inter-agent JSON envelope defined in the specification:
 - `MessageId` (string) — UUID v4
@@ -72,7 +76,7 @@ The inter-agent JSON envelope defined in the specification:
 
 All properties must have `[JsonPropertyName("snake_case")]` attributes.
 
-### 5. `Models/PipelineSummary.cs`
+### 5. `task-2-pipeline/pipeline-code/Models/PipelineSummary.cs`
 
 For `shared/results/summary.json`:
 - `Total` (int)
@@ -84,28 +88,28 @@ For `shared/results/summary.json`:
 - `HeldForReview` (int)
 - `PipelineRunTimestamp` (string)
 
-### 6. `Helpers/FileHelper.cs`
+### 6. `task-2-pipeline/pipeline-code/Helpers/FileHelper.cs`
 
 Static utility class:
 - `WriteJsonAtomicAsync<T>(string filePath, T data, JsonSerializerOptions options, CancellationToken ct)` — writes to `filePath + ".tmp"` then `File.Move(tmpPath, filePath, overwrite: true)`
 - `ReadJsonAsync<T>(string filePath, JsonSerializerOptions options, CancellationToken ct)` — reads and deserializes a JSON file
 
-### 7. `Helpers/PiiMasker.cs`
+### 7. `task-2-pipeline/pipeline-code/Helpers/PiiMasker.cs`
 
 Static utility class:
 - `MaskAccount(string account)` — returns `"ACC-****"` regardless of input
 - Every agent must call this before any log call or file write that includes an account number
 
-### 8. `Integrator.cs`
+### 8. `task-2-pipeline/pipeline-code/Integrator.cs`
 
-Orchestrator class at project root. Constructor takes `ILoggerFactory` and `JsonSerializerOptions`.
+Orchestrator class. Constructor takes `ILoggerFactory` and `JsonSerializerOptions`.
 
 **Method:** `async Task RunAsync(string transactionsFilePath, CancellationToken ct = default)`
 
 Logic:
-1. Ensure `shared/{input,processing,output,results}` directories exist
+1. Ensure `shared/{input,processing,output,results}` directories exist at the homework-6 root (NOT inside pipeline-code)
 2. Clear any leftover files from previous runs in all four directories
-3. Read and deserialize `sample-transactions.json` into `List<RawTransaction>`
+3. Read and deserialize `sample-transactions.json` (at homework-6 root) into `List<RawTransaction>`
 4. For each transaction, create a `MessageEnvelope`:
    - `message_id` = `Guid.NewGuid().ToString()`
    - `timestamp` = `DateTime.UtcNow.ToString("o")`
