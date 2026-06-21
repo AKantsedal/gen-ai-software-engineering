@@ -57,6 +57,9 @@ temp/
 .Trashes
 ehthumbs.db
 
+# MCP config (may contain secrets)
+.mcp.json
+
 # .NET
 bin/
 obj/
