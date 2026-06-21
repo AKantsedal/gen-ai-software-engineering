@@ -38,7 +38,7 @@ Cover all of the following — do not omit any:
 Two sub-sections:
 
 **Beginning State** — list exactly what exists before the pipeline runs:
-- `sample-transactions.json` with 8 records; call out known validation failures (TXN006, TXN007) and known fraud signals (TXN002, TXN003, TXN004, TXN005)
+- `sample-transactions.json` with 8 records; call out known validation failure (TXN006 — invalid currency `XYZ`), known edge case (TXN007 — negative amount but `transaction_type = "refund"`, so it is **valid** and passes through), and known fraud signals (TXN002, TXN003, TXN004, TXN005)
 - `shared/` directory tree
 - No agent source files yet
 

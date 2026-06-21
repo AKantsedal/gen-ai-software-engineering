@@ -14,9 +14,9 @@ Each agent must declare an explicit model. Model choice must match task complexi
 | Agent | Model | Justification |
 |-------|-------|---------------|
 | Transaction Validator | `claude-haiku-4-5-20251001` | Mechanical field checks — fast, deterministic, no reasoning required |
-| Fraud Detector | `claude-opus-4-6` | Risk scoring requires deep multi-signal reasoning; missing a fraud flag has high cost — Opus provides strongest analytical accuracy |
+| Fraud Detector | `claude-opus-4-8` | Risk scoring requires deep multi-signal reasoning; missing a fraud flag has high cost — Opus provides strongest analytical accuracy |
 | Settlement Reporter | `claude-haiku-4-5-20251001` | Structured output generation — deterministic, no open-ended reasoning |
-| Integrator / Orchestrator | `claude-opus-4-6` | Orchestration decisions, error recovery, and pipeline sequencing require strong reasoning to handle edge cases correctly |
+| Integrator / Orchestrator | `claude-opus-4-8` | Orchestration decisions, error recovery, and pipeline sequencing require strong reasoning to handle edge cases correctly |
 
 ## Domain Rules
 - All monetary amounts must use `decimal` — never `double` or `float`
