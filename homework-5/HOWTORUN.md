@@ -63,7 +63,7 @@ Add to Claude Code with your Notion integration token:
 
 ```bash
 claude mcp add notion-mcp -s project \
-  -e NOTION_API_TOKEN=your-notion-token-here \
+  -e OPENAPI_MCP_HEADERS='{"Authorization": "Bearer ntn_your_token_here", "Notion-Version": "2022-06-28"}' \
   -- npx -y @notionhq/notion-mcp-server
 ```
 
@@ -78,13 +78,13 @@ claude mcp add notion-mcp -s project \
 
 ```bash
 cd homework-5/custom-mcp-server
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ### Run the server
 
 ```bash
-python server.py
+python3 server.py
 ```
 
 The server starts and listens for MCP connections via stdio.
@@ -95,7 +95,7 @@ Add to `.mcp.json` or run:
 
 ```bash
 claude mcp add custom-lorem -s project \
-  -- python /path/to/homework-5/custom-mcp-server/server.py
+  -- python3 /path/to/homework-5/custom-mcp-server/server.py
 ```
 
 ### Use the `read` tool
@@ -111,7 +111,7 @@ Or with default word count (30):
 The resource is also accessible as a URI:
 
 ```
-lorem://text?word_count=30
+lorem://text/30
 ```
 
 Claude can read this directly or via the `read` tool.
@@ -143,12 +143,12 @@ Full `.mcp.json` at repo root:
       "command": "npx",
       "args": ["-y", "@notionhq/notion-mcp-server"],
       "env": {
-        "NOTION_API_TOKEN": "<your-token>"
+        "OPENAPI_MCP_HEADERS": "{\"Authorization\": \"Bearer <your-ntn-token>\", \"Notion-Version\": \"2022-06-28\"}"
       }
     },
     "custom-lorem": {
       "type": "stdio",
-      "command": "python",
+      "command": "python3",
       "args": ["/path/to/homework-5/custom-mcp-server/server.py"]
     }
   }

@@ -58,7 +58,7 @@ Uses the Notion MCP server authenticated with a Notion integration token. Demons
 ### Task 4 — Custom FastMCP Server
 
 A custom Python MCP server built with `fastmcp`. Exposes:
-- **Resource** `lorem://text?word_count={n}` — returns the first `n` words from `lorem-ipsum.md`
+- **Resource** `lorem://text/{word_count}` — returns the first `word_count` words from `lorem-ipsum.md`
 - **Tool** `read` — callable by Claude; accepts an optional `word_count` parameter and returns the resource content
 
 See `custom-mcp-server/server.py` and `HOWTORUN.md` for full details.
