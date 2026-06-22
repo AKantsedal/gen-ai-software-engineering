@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git push*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd task-2-pipeline && dotnet test tests/BankingPipeline.Tests.csproj --collect:\"XPlat Code Coverage\" --results-directory ./TestResults --verbosity quiet 2>&1 && COVERAGE=$(grep -o 'line-rate=\"[0-9.]*\"' ./TestResults/*/coverage.cobertura.xml 2>/dev/null | head -1 | grep -o '[0-9.]*' | head -1) && PERCENT=$(python3 -c \"print(int(float('${COVERAGE:-0}') * 100))\") && echo \"Coverage: ${PERCENT}%\" && if [ \"$PERCENT\" -lt 80 ]; then echo \"BLOCKED: Coverage ${PERCENT}% is below 80% gate\" && exit 1; else echo \"PASSED: Coverage ${PERCENT}% meets 80% gate\"; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

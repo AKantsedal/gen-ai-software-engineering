@@ -75,19 +75,25 @@ sample-transactions.json
 ```
 homework-6/
 ├── .claude/
-│   ├── commands/          Slash commands (meta-agents)
-│   └── mcp.json           MCP server configuration
-├── task-1-specification/  Specification (Agent 1 output)
-├── task-2-pipeline/       Code generation agents (Agent 2)
-├── agents/                Pipeline agent C# modules
-├── Models/                Shared data models
-├── Helpers/               Utility classes (atomic writes, PII masking)
-├── shared/                File-based communication directories
+│   ├── commands/                  Slash commands (run-pipeline, validate-transactions)
+│   ├── settings.json              Hooks (coverage gate on git push)
+│   └── mcp.json                   MCP server configuration
+├── task-1-specification/          Specification (Agent 1 output)
+├── task-2-pipeline/
+│   ├── pipeline-code/             .NET 10 C# pipeline source
+│   │   ├── agents/                TransactionValidator, FraudDetector, SettlementReporter
+│   │   ├── Models/                MessageEnvelope, RawTransaction, PipelineSummary
+│   │   ├── Helpers/               FileHelper (atomic writes), PiiMasker
+│   │   └── Integrator.cs          Orchestrator — runs all agents end-to-end
+│   └── tests/                     xUnit test suite (53 tests, ~94% coverage)
+├── task-3-skills-hooks/           Skills and hooks agent definitions
+├── task-4-mcp/                    MCP agent definition
+├── mcp/                           FastMCP server (Python)
+├── shared/                        File-based inter-agent communication
 │   ├── input/
 │   ├── processing/
 │   ├── output/
 │   └── results/
-├── mcp/                   Custom FastMCP server
-├── tests/                 xUnit test suite
-└── docs/screenshots/      Evidence screenshots
+├── docs/screenshots/               Evidence screenshots (5 required)
+└── sample-transactions.json       8 test transactions
 ```

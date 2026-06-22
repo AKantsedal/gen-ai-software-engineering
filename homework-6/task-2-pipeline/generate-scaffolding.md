@@ -1,3 +1,7 @@
+---
+model: claude-opus-4-6
+---
+
 Generate the .NET 10 project scaffolding, shared models, helper utilities, and the Integrator orchestrator for the multi-agent banking pipeline.
 
 ## Pre-flight

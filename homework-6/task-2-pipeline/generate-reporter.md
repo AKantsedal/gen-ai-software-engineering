@@ -1,3 +1,7 @@
+---
+model: claude-sonnet-4-6
+---
+
 Generate the SettlementReporter (Reporting Agent) for the multi-agent banking pipeline.
 
 ## Pre-flight

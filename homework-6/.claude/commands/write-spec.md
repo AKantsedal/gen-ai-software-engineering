@@ -1,3 +1,7 @@
+---
+model: claude-opus-4-6
+---
+
 Generate a complete technical specification for the multi-agent banking pipeline following the 5-section template.
 
 ## Steps

@@ -1,3 +1,7 @@
+---
+model: claude-opus-4-6
+---
+
 Generate the FraudDetector agent for the multi-agent banking pipeline.
 
 ## Pre-flight

@@ -15,14 +15,19 @@
 
 2. Restore .NET dependencies:
    ```bash
-   dotnet restore
+   dotnet restore task-2-pipeline/pipeline-code/BankingPipeline.csproj
+   ```
+
+3. Install Python dependencies (for MCP server):
+   ```bash
+   pip install fastmcp
    ```
 
 ## Run the Pipeline
 
-3. Execute the pipeline:
+3. Execute the pipeline (from `homework-6/`):
    ```bash
-   dotnet run
+   dotnet run --project task-2-pipeline/pipeline-code/BankingPipeline.csproj
    ```
 
 4. Check results:
@@ -33,9 +38,9 @@
 
 ## Run Tests
 
-5. Run tests with coverage:
+5. Run tests with coverage (from `homework-6/`):
    ```bash
-   dotnet test --collect:"XPlat Code Coverage"
+   dotnet test task-2-pipeline/tests/BankingPipeline.Tests.csproj --collect:"XPlat Code Coverage"
    ```
 
 ## Using Claude Code Skills

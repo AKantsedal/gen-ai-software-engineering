@@ -60,6 +60,15 @@ ehthumbs.db
 # .NET
 bin/
 obj/
+
+# Test results
+TestResults/
+
+# Pipeline shared runtime directories (generated at runtime)
+homework-6/shared/input/
+homework-6/shared/processing/
+homework-6/shared/output/
+homework-6/shared/results/
 *.user
 *.suo
 *.cache
