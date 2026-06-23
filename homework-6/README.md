@@ -1,6 +1,6 @@
 # AI-Powered Multi-Agent Banking Pipeline
 
-**Created by: Oleksii Kantsedal**
+**Created by: Artur Kantsedal**
 
 ## Overview
 
